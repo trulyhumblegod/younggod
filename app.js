@@ -81,27 +81,6 @@ postView.addEventListener('scroll', () => {
     progressBar.style.width = `${progress}%`;
 });
 
-// Audio Player Logic
-const playBtn = document.getElementById('play-pause');
-const audioProgress = document.getElementById('audio-progress');
-const audio = new Audio();
-audio.src = 'audio/music.mp3'; // Put your mp3 here and name it music.mp3
-let isPlaying = false;
 
-playBtn.addEventListener('click', () => {
-    if (isPlaying) {
-        audio.pause();
-        playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-    } else {
-        audio.play().catch(e => console.log("Audio play failed - maybe no file yet: ", e));
-        playBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-    }
-    isPlaying = !isPlaying;
-});
-
-audio.addEventListener('timeupdate', () => {
-    const progress = (audio.currentTime / audio.duration) * 100;
-    audioProgress.style.width = `${progress}%`;
-});
 
 renderPosts();
