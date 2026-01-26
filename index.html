@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Young God | Artificial and Organic intelligence</title>
+    <meta name="description" content="Artificial and Organic intelligence, the secrets of life. A minimalistic blog by Young God.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header>
+        <div class="audio-player-container">
+            <div class="audio-player glass">
+                <button id="play-pause" class="player-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <div class="track-info">
+                    <span class="track-name">Celestial Resonance.mp3</span>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="audio-progress"></div>
+                    </div>
+                </div>
+                <div class="volume-container">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="volume-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="content">
+        <section class="hero-section">
+            <h1 class="blog-title">Young God</h1>
+            <p class="blog-subtitle">Artificial and Organic intelligence</p>
+        </section>
+
+        <nav class="post-list-container">
+            <ul class="post-list" id="post-list">
+                <!-- Posts will be injected here -->
+            </ul>
+        </nav>
+
+        <article id="post-view" class="hidden">
+            <div class="article-progress-container">
+                <div class="article-progress-bar" id="reading-progress"></div>
+            </div>
+            <button class="back-link" id="back-to-list">← Back to entries</button>
+            <div id="post-content" class="post-content">
+                <!-- Post content here -->
+            </div>
+        </article>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
