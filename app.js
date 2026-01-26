@@ -6,16 +6,10 @@ const posts = [
         file: "posts/digital-consciousness.html"
     },
     {
-        id: "organic-architectures",
-        title: "Organic Architectures and Sacred Geometry",
-        date: "JAN 20, 2026",
-        file: "posts/organic-architectures.html"
+       
     },
     {
-        id: "infinite-cloud",
-        title: "The Silence of the Infinite Cloud",
-        date: "JAN 15, 2026",
-        file: "posts/infinite-cloud.html"
+        
     }
 ];
 
@@ -86,3 +80,4 @@ postView.addEventListener('scroll', () => {
 document.addEventListener('DOMContentLoaded', () => {
     renderPosts();
 });
+
