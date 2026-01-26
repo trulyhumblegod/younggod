@@ -4,11 +4,7 @@ const posts = [
         title: "The Emergence of Digital Consciousness",
         date: "JAN 26, 2026",
         file: "posts/digital-consciousness.html"
-    },
-    {
-       
-    },
-    {
+    
         
     }
 ];
@@ -80,4 +76,5 @@ postView.addEventListener('scroll', () => {
 document.addEventListener('DOMContentLoaded', () => {
     renderPosts();
 });
+
 
