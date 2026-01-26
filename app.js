@@ -83,4 +83,6 @@ postView.addEventListener('scroll', () => {
 
 
 
-renderPosts();
+document.addEventListener('DOMContentLoaded', () => {
+    renderPosts();
+});
