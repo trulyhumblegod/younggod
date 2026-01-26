@@ -4,18 +4,58 @@ const posts = [
         title: "The Emergence of Digital Consciousness",
         date: "JAN 26, 2026",
         file: "posts/digital-consciousness.html"
-    
-        
+    },
+    {
+        id: "organic-architectures",
+        title: "Organic Architectures and Sacred Geometry",
+        date: "JAN 20, 2026",
+        file: "posts/organic-architectures.html"
+    },
+    {
+        id: "infinite-cloud",
+        title: "The Silence of the Infinite Cloud",
+        date: "JAN 15, 2026",
+        file: "posts/infinite-cloud.html"
     }
 ];
 
-const postList = document.getElementById('post-list');
-const postView = document.getElementById('post-view');
-const postContent = document.getElementById('post-content');
-const backButton = document.getElementById('back-to-list');
-const progressBar = document.getElementById('reading-progress');
+// Global references filled during init
+let postList, postView, postContent, backButton, progressBar;
+
+function init() {
+    console.log("[Blog] Initializing...");
+
+    postList = document.getElementById('post-list');
+    postView = document.getElementById('post-view');
+    postContent = document.getElementById('post-content');
+    backButton = document.getElementById('back-to-list');
+    progressBar = document.getElementById('reading-progress');
+
+    if (!postList || !postView || !postContent || !backButton || !progressBar) {
+        console.error("[Blog] Critical error: One or more DOM elements not found.");
+        return;
+    }
+
+    renderPosts();
+    setupEventListeners();
+
+    // Check for deep link on load
+    handleHash();
+
+    console.log("[Blog] Initialization complete.");
+}
+
+function handleHash() {
+    const hash = window.location.hash.substring(1); // Remove #
+    if (hash) {
+        showPost(hash, true); // true indicates it's from hash/initial load
+    } else {
+        closePost();
+    }
+}
 
 function renderPosts() {
+    console.log("[Blog] Rendering posts...");
     postList.innerHTML = posts.map(post => `
         <li>
             <a href="#" class="post-item" data-id="${post.id}">
@@ -34,12 +74,46 @@ function renderPosts() {
     });
 }
 
-async function showPost(id) {
-    const post = posts.find(p => p.id === id);
-    if (!post) return;
+function setupEventListeners() {
+    backButton.addEventListener('click', () => {
+        window.location.hash = ''; // This will trigger hashchange
+    });
 
+    window.addEventListener('hashchange', handleHash);
+
+    postView.addEventListener('scroll', () => {
+        const scrollTotal = postView.scrollHeight - postView.clientHeight;
+        const scrollPos = postView.scrollTop;
+        const progress = (scrollPos / scrollTotal) * 100;
+        progressBar.style.width = `${progress}%`;
+    });
+}
+
+function closePost() {
+    postView.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    setTimeout(() => {
+        postView.classList.add('hidden');
+    }, 600);
+}
+
+async function showPost(id, fromHash = false) {
+    const post = posts.find(p => p.id === id);
+    if (!post) {
+        if (fromHash) closePost(); // Invalid hash, go home
+        return;
+    }
+
+    if (!fromHash) {
+        window.location.hash = id;
+        return; // handleHash will call showPost(id, true)
+    }
+
+    console.log(`[Blog] Loading post: ${id}`);
     try {
         const response = await fetch(post.file);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
         const html = await response.text();
         postContent.innerHTML = html;
 
@@ -50,31 +124,9 @@ async function showPost(id) {
             postView.scrollTop = 0;
         }, 10);
     } catch (error) {
-        console.error("Error loading post:", error);
+        console.error("[Blog] Error loading post:", error);
         postContent.innerHTML = "<h1>Error loading post</h1><p>Please try again later.</p>";
     }
 }
 
-backButton.addEventListener('click', () => {
-    postView.classList.remove('active');
-    document.body.style.overflow = 'auto';
-    setTimeout(() => {
-        postView.classList.add('hidden');
-    }, 600);
-});
-
-// Reading Progress
-postView.addEventListener('scroll', () => {
-    const scrollTotal = postView.scrollHeight - postView.clientHeight;
-    const scrollPos = postView.scrollTop;
-    const progress = (scrollPos / scrollTotal) * 100;
-    progressBar.style.width = `${progress}%`;
-});
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderPosts();
-});
-
-
+document.addEventListener('DOMContentLoaded', init);
