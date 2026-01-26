@@ -345,4 +345,36 @@ main {
     header {
         padding: 1rem;
     }
+
+    /* Post content mobile adjustments */
+    .post-header-image {
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin-bottom: 2rem;
+    }
+
+    .post-content h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .post-content h2 {
+        font-size: 1.5rem;
+        margin: 2.5rem 0 1rem 0;
+    }
+
+    .post-content {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .post-content blockquote {
+        font-size: 1.3rem;
+        padding: 2rem 0;
+        margin: 2.5rem 0;
+    }
+
+    .post-content .media-block {
+        margin: 2.5rem 0;
+    }
 }
