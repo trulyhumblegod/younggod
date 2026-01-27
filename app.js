@@ -82,13 +82,6 @@ function setupEventListeners() {
     });
 
     window.addEventListener('hashchange', handleHash);
-
-    postView.addEventListener('scroll', () => {
-        const scrollTotal = postView.scrollHeight - postView.clientHeight;
-        const scrollPos = postView.scrollTop;
-        const progress = (scrollPos / scrollTotal) * 100;
-        progressBar.style.width = `${progress}%`;
-    });
 }
 
 function closePost() {
@@ -118,17 +111,74 @@ async function showPost(id, fromHash = false) {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
         const html = await response.text();
-        postContent.innerHTML = html;
+        const postFrame = document.getElementById('post-frame');
+
+        // Write content to iframe document
+        const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
+        frameDoc.open();
+        frameDoc.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="style.css">
+                <style>
+                    body {
+                        background: #ffffff;
+                        overflow-x: hidden;
+                        padding: 0 2rem 4rem 2rem;
+                        margin: 0;
+                    }
+                    /* Ensure lightbox images work inside iframe */
+                    .post-content img { cursor: pointer; }
+                </style>
+            </head>
+            <body>
+                <div class="post-content">
+                    ${html}
+                </div>
+            </body>
+            </html>
+        `);
+        frameDoc.close();
 
         postView.classList.remove('hidden');
+
+        // Add click listener to iframe for lightbox
+        postFrame.onload = () => {
+            const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
+            frameDoc.addEventListener('click', (e) => {
+                if (e.target.matches('img')) {
+                    // Send message to parent to open lightbox
+                    window.parent.postMessage({
+                        type: 'openLightbox',
+                        src: e.target.src,
+                        alt: e.target.alt
+                    }, '*');
+                }
+            });
+
+            // Sync scroll for progress bar
+            const frameWin = postFrame.contentWindow;
+            frameWin.addEventListener('scroll', () => {
+                const scrollTotal = frameDoc.documentElement.scrollHeight - frameWin.innerHeight;
+                const scrollPos = frameWin.scrollY;
+                const progress = (scrollPos / scrollTotal) * 100;
+                progressBar.style.width = `${progress}%`;
+            });
+        };
+
         setTimeout(() => {
             postView.classList.add('active');
             document.body.style.overflow = 'hidden';
-            postView.scrollTop = 0;
         }, 10);
     } catch (error) {
         console.error("[Blog] Error loading post:", error);
-        postContent.innerHTML = "<h1>Error loading post</h1><p>Please try again later.</p>";
+        // postFrame.srcdoc = "<h1>Error loading post</h1><p>Please try again later.</p>"; 
     }
 }
 
@@ -138,13 +188,12 @@ function initLightbox() {
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
 
-    // Delegate click events to post content for ALL images
-    document.addEventListener('click', (e) => {
-        if (e.target.matches('.post-content img')) {
-            lightboxImg.src = e.target.src;
-            lightboxImg.alt = e.target.alt;
+    // Message listener for iframe clicks
+    window.addEventListener('message', (event) => {
+        if (event.data.type === 'openLightbox') {
+            lightboxImg.src = event.data.src;
+            lightboxImg.alt = event.data.alt;
             lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
     });
 
@@ -152,10 +201,6 @@ function initLightbox() {
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox || e.target === lightboxClose) {
             lightbox.classList.remove('active');
-            // Keep overflow hidden if post view is still active
-            if (!postView.classList.contains('active')) {
-                document.body.style.overflow = '';
-            }
         }
     });
 

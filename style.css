@@ -230,13 +230,12 @@ main {
     color: #000;
 }
 
-.post-content {
-    max-width: var(--content-max-width);
-    margin: 0 auto;
-    line-height: 1.85;
-    font-size: 0.9375rem;
-    font-weight: 300;
-    color: #333;
+.post-frame {
+    width: 100%;
+    height: calc(100% - 100px);
+    border: none;
+    background: #ffffff;
+    display: block;
 }
 
 .post-content h1 {
