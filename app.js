@@ -76,7 +76,9 @@ function renderPosts() {
 
 function setupEventListeners() {
     backButton.addEventListener('click', () => {
-        window.location.hash = ''; // This will trigger hashchange
+        // Use pushState to remove hash without triggering scroll jump
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+        handleHash(); // Manually trigger hash handler since pushState doesn't fire hashchange
     });
 
     window.addEventListener('hashchange', handleHash);
