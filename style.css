@@ -286,7 +286,6 @@ main {
     overflow: hidden;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
 .post-content .media-block img {
