@@ -1,5 +1,11 @@
 const posts = [
     {
+        id: "why-chatgpt-sucks",
+        title: "Why ChatGPT sucks (and what to use instead)",
+        date: "JAN 26, 2026",
+        file: "posts/why-chatgpt-sucks.html"
+    },
+    {
         id: "digital-consciousness",
         title: "The Emergence of Digital Consciousness",
         date: "JAN 26, 2026",
@@ -139,11 +145,16 @@ async function showPost(id, fromHash = false) {
                 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="style.css">
                 <style>
-                    body {
+                    html, body {
                         background: #ffffff;
-                        overflow-x: hidden;
-                        padding: 0 2rem 4rem 2rem;
+                        overflow: hidden; /* Prevent iframe scrollbars */
+                        padding: 0;
                         margin: 0;
+                        width: 100%;
+                    }
+                    body {
+                        padding: 0 2rem 4rem 2rem;
+                        box-sizing: border-box;
                     }
                     /* Ensure lightbox images work inside iframe */
                     .post-content img { cursor: pointer; }
