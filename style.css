@@ -54,9 +54,10 @@ main {
 
 .hero-section {
     text-align: center;
-    margin-bottom: 3rem;
+    margin: 0 auto 3rem auto;
     max-width: 800px;
     padding: 0 2rem;
+    width: 100%;
 }
 
 .blog-title {
@@ -89,6 +90,7 @@ main {
 .post-list-container {
     width: 100%;
     max-width: 850px;
+    margin: 0 auto;
     padding: 0 2rem 10rem 2rem;
 }
 
@@ -388,7 +390,9 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 9999;
     align-items: center;
     justify-content: center;
