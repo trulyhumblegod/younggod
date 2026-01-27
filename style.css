@@ -231,10 +231,10 @@ main {
 
 .post-frame {
     width: 100%;
-    height: calc(100% - 100px);
     border: none;
     background: #ffffff;
     display: block;
+    min-height: 200px;
 }
 
 .post-content h1 {
@@ -307,6 +307,31 @@ main {
     color: #666;
     text-align: center;
     font-style: italic;
+}
+
+.post-meta {
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: -1.5rem;
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.post-meta .author {
+    font-weight: 600;
+    color: #000;
+}
+
+.post-content .intro {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 3rem;
+    font-family: var(--font-heading);
 }
 
 @media (max-width: 800px) {

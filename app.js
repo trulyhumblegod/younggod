@@ -82,6 +82,18 @@ function setupEventListeners() {
     });
 
     window.addEventListener('hashchange', handleHash);
+
+    // Progress bar listener on the postView container
+    postView.addEventListener('scroll', () => {
+        const scrollTotal = postView.scrollHeight - postView.clientHeight;
+        const scrollPos = postView.scrollTop;
+        if (scrollTotal > 0) {
+            const progress = (scrollPos / scrollTotal) * 100;
+            progressBar.style.width = `${progress}%`;
+        } else {
+            progressBar.style.width = '0%';
+        }
+    });
 }
 
 function closePost() {
@@ -148,27 +160,28 @@ async function showPost(id, fromHash = false) {
 
         postView.classList.remove('hidden');
 
-        // Add click listener to iframe for lightbox
+        // Resize iframe and setup listeners when loaded
         postFrame.onload = () => {
             const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
+
+            // Auto-resize iframe
+            const resizeIframe = () => {
+                postFrame.style.height = frameDoc.body.scrollHeight + 'px';
+            };
+            resizeIframe();
+            // Resize again after images load within iframe
+            frameDoc.querySelectorAll('img').forEach(img => {
+                img.onload = resizeIframe;
+            });
+
             frameDoc.addEventListener('click', (e) => {
                 if (e.target.matches('img')) {
-                    // Send message to parent to open lightbox
                     window.parent.postMessage({
                         type: 'openLightbox',
                         src: e.target.src,
                         alt: e.target.alt
                     }, '*');
                 }
-            });
-
-            // Sync scroll for progress bar
-            const frameWin = postFrame.contentWindow;
-            frameWin.addEventListener('scroll', () => {
-                const scrollTotal = frameDoc.documentElement.scrollHeight - frameWin.innerHeight;
-                const scrollPos = frameWin.scrollY;
-                const progress = (scrollPos / scrollTotal) * 100;
-                progressBar.style.width = `${progress}%`;
             });
         };
 
