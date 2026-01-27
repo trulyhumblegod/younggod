@@ -201,6 +201,11 @@ main {
     z-index: 210;
 }
 
+#post-view.hidden .article-progress-container,
+.hidden .article-progress-container {
+    display: none;
+}
+
 .article-progress-bar {
     height: 100%;
     background: var(--accent-gradient);

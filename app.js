@@ -150,7 +150,10 @@ function initLightbox() {
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox || e.target === lightboxClose) {
             lightbox.classList.remove('active');
-            document.body.style.overflow = '';
+            // Keep overflow hidden if post view is still active
+            if (!postView.classList.contains('active')) {
+                document.body.style.overflow = '';
+            }
         }
     });
 
@@ -158,7 +161,10 @@ function initLightbox() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && lightbox.classList.contains('active')) {
             lightbox.classList.remove('active');
-            document.body.style.overflow = '';
+            // Keep overflow hidden if post view is still active
+            if (!postView.classList.contains('active')) {
+                document.body.style.overflow = '';
+            }
         }
     });
 }
