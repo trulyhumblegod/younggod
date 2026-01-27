@@ -91,7 +91,8 @@ function setupEventListeners() {
 
 function closePost() {
     postView.classList.remove('active');
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
+    postView.scrollTop = 0;
     setTimeout(() => {
         postView.classList.add('hidden');
     }, 600);

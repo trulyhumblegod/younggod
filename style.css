@@ -66,11 +66,12 @@ main {
     letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
     animation: fadeInDown 1.2s ease forwards;
+    color: #ffffff;
 }
 
 .blog-subtitle {
     font-size: 0.85rem;
-    color: var(--text-primary);
+    color: #ffffff;
     font-weight: 400;
     letter-spacing: 0.05em;
     animation: fadeIn 1.5s ease forwards;
@@ -102,7 +103,7 @@ main {
     padding: 1rem 1.5rem;
     display: block;
     text-decoration: none;
-    color: inherit;
+    color: #ffffff;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     background: rgba(255, 255, 255, 0.03);
