@@ -130,4 +130,40 @@ async function showPost(id, fromHash = false) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', init);
+// Lightbox functionality
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.querySelector('.lightbox-close');
+
+    // Delegate click events to post content for images inside media-blocks
+    document.addEventListener('click', (e) => {
+        if (e.target.matches('.media-block img')) {
+            lightboxImg.src = e.target.src;
+            lightboxImg.alt = e.target.alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    // Close lightbox when clicking the close button or backdrop
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxClose) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    initLightbox();
+});
