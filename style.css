@@ -189,8 +189,7 @@ main {
 }
 
 .hidden {
-    display: none !important;
-    visibility: hidden !important;
+    display: none;
 }
 
 .article-progress-container {

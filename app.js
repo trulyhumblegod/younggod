@@ -20,18 +20,18 @@ const posts = [
 ];
 
 // Global references filled during init
-let postList, postView, postContent, backButton, progressBar;
+let postList, postView, postFrame, backButton, progressBar;
 
 function init() {
     console.log("[Blog] Initializing...");
 
     postList = document.getElementById('post-list');
     postView = document.getElementById('post-view');
-    postContent = document.getElementById('post-content');
+    postFrame = document.getElementById('post-frame');
     backButton = document.getElementById('back-to-list');
     progressBar = document.getElementById('reading-progress');
 
-    if (!postList || !postView || !postContent || !backButton || !progressBar) {
+    if (!postList || !postView || !postFrame || !backButton || !progressBar) {
         console.error("[Blog] Critical error: One or more DOM elements not found.");
         return;
     }
