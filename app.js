@@ -136,9 +136,9 @@ function initLightbox() {
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxClose = document.querySelector('.lightbox-close');
 
-    // Delegate click events to post content for images inside media-blocks
+    // Delegate click events to post content for ALL images
     document.addEventListener('click', (e) => {
-        if (e.target.matches('.media-block img')) {
+        if (e.target.matches('.post-content img')) {
             lightboxImg.src = e.target.src;
             lightboxImg.alt = e.target.alt;
             lightbox.classList.add('active');
