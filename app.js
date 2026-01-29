@@ -1,9 +1,9 @@
 const posts = [
     {
-        id: "why-chatgpt-sucks",
-        title: "On the Inadequacy of Consumer-Grade Language Models",
+        id: "chatgpt-es-para-noobs",
+        title: "ChatGPT es para noobs",
         date: "JAN 28, 2026",
-        file: "posts/why-chatgpt-sucks.html"
+        file: "posts/chatgpt-es-para-noobs.html"
     },
     {
         id: "digital-consciousness",
@@ -44,3 +44,4 @@ function renderPosts() {
 document.addEventListener('DOMContentLoaded', () => {
     init();
 });
+
