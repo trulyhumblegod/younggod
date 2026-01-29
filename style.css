@@ -67,6 +67,10 @@ main {
     align-items: center;
 }
 
+main.homepage-main {
+    padding-top: 120px;
+}
+
 .hero-section {
     text-align: center;
     margin: 0 auto 3rem auto;
