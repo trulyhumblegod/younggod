@@ -25,10 +25,11 @@ function init() {
     // themeToggle = document.getElementById('theme-toggle'); 
 
 
-    if (!postList || !postView || !postFrame || !backButton || !progressBar) {
+    if (!postList || !postView || !postFrame) {
         console.error("[Blog] Critical error: One or more DOM elements not found.");
         return;
     }
+
 
     // Initialize Theme
     // initTheme(); // Removed to protect homepage
@@ -77,30 +78,9 @@ function renderPosts() {
 }
 
 function setupEventListeners() {
-    backButton.addEventListener('click', () => {
-        // Use pushState to remove hash without triggering scroll jump
-        history.pushState("", document.title, window.location.pathname + window.location.search);
-        handleHash(); // Manually trigger hash handler since pushState doesn't fire hashchange
-    });
-
     window.addEventListener('hashchange', handleHash);
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
-    }
-
-    // Progress bar listener on the postView container
-    postView.addEventListener('scroll', () => {
-        const scrollTotal = postView.scrollHeight - postView.clientHeight;
-        const scrollPos = postView.scrollTop;
-        if (scrollTotal > 0) {
-            const progress = (scrollPos / scrollTotal) * 100;
-            progressBar.style.width = `${progress}%`;
-        } else {
-            progressBar.style.width = '0%';
-        }
-    });
 }
+
 
 
 function closePost() {
