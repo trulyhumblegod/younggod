@@ -4,7 +4,14 @@ const posts = [
         title: "On the Inadequacy of Consumer-Grade Language Models",
         date: "JAN 28, 2026",
         file: "posts/why-chatgpt-sucks.html"
+    },
+    {
+        id: "digital-consciousness",
+        title: "The Emergence of Digital Consciousness",
+        date: "JAN 25, 2026",
+        file: "posts/digital-consciousness.html"
     }
+
 ];
 
 let postList;
