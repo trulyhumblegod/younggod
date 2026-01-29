@@ -31,7 +31,8 @@ function init() {
     }
 
     // Initialize Theme
-    initTheme();
+    // initTheme(); // Removed to protect homepage
+
 
     renderPosts();
     setupEventListeners();
@@ -44,36 +45,7 @@ function init() {
 
 
 
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateToggleIcon(savedTheme);
-}
 
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateToggleIcon(newTheme);
-
-    // Sync with iframe if active
-    syncIframeTheme(newTheme);
-}
-
-function updateToggleIcon(theme) {
-    const toggle = document.getElementById('theme-toggle');
-    if (toggle) {
-        toggle.innerHTML = theme === 'light' ? '☾' : '☀';
-    }
-}
-
-function syncIframeTheme(theme) {
-    if (postFrame && postFrame.contentDocument) {
-        postFrame.contentDocument.documentElement.setAttribute('data-theme', theme);
-    }
-}
 
 function handleHash() {
     const hash = window.location.hash.substring(1); // Remove #
@@ -303,8 +275,11 @@ function initLightbox() {
             lightboxImg.src = event.data.src;
             lightboxImg.alt = event.data.alt;
             lightbox.classList.add('active');
+        } else if (event.data.type === 'close') {
+            closePost();
         }
     });
+
 
     // Close lightbox when clicking the close button or backdrop
     lightbox.addEventListener('click', (e) => {
