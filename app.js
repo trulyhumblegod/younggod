@@ -149,35 +149,43 @@ async function showPost(id, fromHash = false) {
                 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
                 <link rel="stylesheet" href="style.css">
                 <style>
-                    html, body {
-                        overflow-x: hidden; 
-                        padding: 0;
-                        margin: 0;
+                    html {
                         width: 100%;
-                         /* Force removal of background image from style.css overrides */
+                        height: 100%; 
+                        overflow-y: auto; /* Scroll inside iframe */
+                    }
+                    body {
+                        margin: 0;
+                        padding: 3rem 2rem 5rem 2rem; /* Adjusted opacity/readability */
+                        box-sizing: border-box;
+                        min-height: 100%;
                         background-image: none !important;
                     }
                     
-                    /* Theme overrides for the iframe body specifically */
-                    html[data-theme="dark"] body {
+                    /* Theme overrides applied to HTML to ensure full coverage */
+                    html[data-theme="dark"] {
                          background-color: #050505 !important;
                          color: #ffffff;
+                    }
+                    html[data-theme="dark"] body {
+                        background-color: #050505 !important;
+                        color: #ffffff;
+                    }
+
+                    html[data-theme="light"] {
+                        background-color: #f5f5f7 !important;
+                         color: #1d1d1f;
                     }
                     html[data-theme="light"] body {
                         background-color: #f5f5f7 !important;
                         color: #1d1d1f;
                     }
 
-                    body {
-                        padding: 0 2rem 4rem 2rem;
-                        box-sizing: border-box;
-                    }
-
                     /* Floating Toggle inside Iframe */
                     .theme-toggle {
                         position: fixed;
                         top: 1rem;
-                        right: 1rem;
+                        right: 1.5rem;
                         z-index: 9999;
                     }
                     
@@ -186,12 +194,24 @@ async function showPost(id, fromHash = false) {
                         color: #000;
                         border-color: rgba(0,0,0,0.1);
                     }
+                    
+                     /* Force text colors */
+                    html[data-theme="dark"] .post-content h1, 
+                    html[data-theme="dark"] .post-content h2, 
+                    html[data-theme="dark"] .post-content li::before {
+                        color: #ffffff !important;
+                    }
+                    html[data-theme="light"] .post-content h1, 
+                    html[data-theme="light"] .post-content h2 {
+                        color: #000000 !important;
+                    }
                 </style>
             </head>
             <body>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
                     ${savedTheme === 'light' ? '☾' : '☀'}
                 </button>
+                <button id="close-post" class="back-link" style="position:fixed; top:1.5rem; left:2rem; z-index:9000; margin:0;">← Back</button>
 
                 <div class="post-content">
                     ${html}
@@ -207,11 +227,14 @@ async function showPost(id, fromHash = false) {
                         html.setAttribute('data-theme', next);
                         toggle.innerHTML = next === 'light' ? '☾' : '☀';
                         
-                        // Save preference specifically for blog posts
                         localStorage.setItem('blog_theme', next);
                     });
                     
-                    // Lightbox message relay
+                    document.getElementById('close-post').addEventListener('click', () => {
+                        window.parent.postMessage({ type: 'close' }, '*');
+                    });
+                    
+                    // Lightbox functionality
                     document.addEventListener('click', (e) => {
                         if (e.target.matches('img')) {
                             window.parent.postMessage({
@@ -221,15 +244,6 @@ async function showPost(id, fromHash = false) {
                             }, '*');
                         }
                     });
-                    
-                    // Auto-resize
-                    const resize = () => {
-                        window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight }, '*');
-                    };
-                    window.onload = resize;
-                    window.onresize = resize;
-                    // Resize when images load
-                    document.querySelectorAll('img').forEach(img => img.onload = resize);
                 </script>
             </body>
             </html>
@@ -239,19 +253,7 @@ async function showPost(id, fromHash = false) {
 
         postView.classList.remove('hidden');
 
-        // Resize logic is now mostly inside the iframe script, but we keep the onload here as fallback/initial
-        postFrame.onload = () => {
-            // Initial resize attempted from parent side as well
-            const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
-            postFrame.style.height = frameDoc.body.scrollHeight + 'px';
-        };
-
-        // Listen for resize messages from iframe
-        window.addEventListener('message', (e) => {
-            if (e.data.type === 'resize') {
-                postFrame.style.height = e.data.height + 'px';
-            }
-        });
+        // No resize logic needed for 100% height iframe
 
         setTimeout(() => {
             postView.classList.add('active');
@@ -260,6 +262,15 @@ async function showPost(id, fromHash = false) {
     } catch (error) {
         console.error("[Blog] Error loading post:", error);
     }
+}
+
+setTimeout(() => {
+    postView.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}, 10);
+    } catch (error) {
+    console.error("[Blog] Error loading post:", error);
+}
 }
 
 
