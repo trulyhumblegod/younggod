@@ -1,183 +1,415 @@
-<header class="post-header">
-    <h1 style="color: var(--text-primary);">On the Inadequacy of Consumer-Grade Language Models</h1>
-    <div class="post-meta">
-        <span class="author">By Young God</span> • <span class="read-time">Jan 28, 2026</span>
-    </div>
-</header>
+<!DOCTYPE html>
+<html lang="en">
 
-<section class="post-body">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On the Inadequacy of Consumer-Grade Language Models | Young God</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-color: #ffffff;
+            --accent-gradient: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.4) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 20px;
+        }
 
-    <h2>I. Foundational Principle</h2>
-    <ol class="up-numbers">
-        <li>In competitive environments, capability differential determines survival.</li>
-        <li>Tools optimized for mass appeal sacrifice performance for accessibility.</li>
-        <li>This creates a measurement problem: how do we identify true capability?</li>
-    </ol>
+        [data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-primary: #1d1d1f;
+            --text-secondary: rgba(29, 29, 31, 0.7);
+            --accent-color: #000000;
+            --accent-gradient: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.6) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --glass-blur: 30px;
+        }
 
-    <h2>II. The Measurement Problem</h2>
+        body {
+            background-color: var(--bg-color);
+            background-image: none !important;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    <h3>A. Subjective Rankings (LMArena)</h3>
-    <ol class="up-numbers">
-        <li>The most popular metric—LMArena—measures human preference, not objective capability.</li>
-        <li>LMArena uses blind comparison with ELO-style ranking.</li>
-        <li>Current leader: Gemini-3-Pro.</li>
-        <li>Fatal flaw: the system rewards agreeableness over correctness.</li>
-        <li>Popularity contests select for comfort, not competence.</li>
-    </ol>
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
 
-    <h3>B. Objective Benchmarks</h3>
-    <ol class="up-numbers">
-        <li>Truth requires measurement resistant to gaming.</li>
-    </ol>
+        .nav-header {
+            max-width: 680px;
+            margin: 0 auto 4rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    <p><strong>Four critical tests:</strong></p>
-    <ol class="up-numbers">
-        <li><strong>Humanity's Last Exam</strong>: Graduate-level cross-domain knowledge.</li>
-        <li><strong>GPQA</strong>: Expert-only scientific reasoning (non-Googleable).</li>
-        <li><strong>LiveBench</strong>: Monthly-updated, memorization-proof testing.</li>
-        <li><strong>SWE-bench</strong>: Real-world task completion (GitHub issue resolution).</li>
-        <li>Result: GLM 4.7 demonstrates empirical superiority.</li>
-        <li>But raw capability means nothing if the tool is compromised at the architectural level.</li>
-    </ol>
+        .back-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
 
-    <h2>III. The Alignment Problem</h2>
-    <ol class="up-numbers">
-        <li>Superior benchmarks reveal a deeper issue: corporate models are not designed for truth.</li>
-    </ol>
+        .back-link:hover {
+            color: var(--text-primary);
+        }
 
-    <h3>A. Corporate Incentive Structure</h3>
-    <ol class="up-numbers">
-        <li>Proprietary models optimize for retention, not truth.</li>
-    </ol>
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    <p><strong>Mechanism:</strong></p>
-    <ol class="up-numbers">
-        <li>RLHF trains on human approval signals.</li>
-        <li>Humans reward politeness over accuracy.</li>
-        <li>Safety alignment suppresses disagreement.</li>
-        <li>Business model requires user retention.</li>
-        <li>Proof: OpenAI's documented "sycophancy failure" (2025, GPT-4o).</li>
-        <li>This is not a bug—it is the intended function of the system.</li>
-    </ol>
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
 
-    <h3>B. The Black Box Risk</h3>
-    <ol class="up-numbers">
-        <li>Beyond behavioral alignment, proprietary models introduce structural vulnerabilities.</li>
-    </ol>
+        /* Up Numbers Styling */
+        .post-content {
+            counter-reset: custom-counter;
+        }
 
-    <p><strong>Four failure modes:</strong></p>
-    <ol class="up-numbers">
-        <li>Unknown training data.</li>
-        <li>Hidden system instructions.</li>
-        <li>Unauditable decision processes.</li>
-        <li>Data mining by controlling entity.</li>
-        <li>Conclusion: closed systems are structurally untrustworthy.</li>
-        <li>This raises the question: if most models fail either the capability test or the trust test, which tools
-            actually work?</li>
-    </ol>
+        .up-numbers {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 2.2rem;
+        }
 
-    <h2>IV. Model Classification by Use</h2>
-    <ol class="up-numbers">
-        <li>No single model dominates all domains.</li>
-        <li>Rational deployment requires matching tool to task.</li>
-    </ol>
+        .up-numbers li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
 
-    <div class="table-container" style="margin: 2rem 0; overflow-x: auto;">
-        <table
-            style="width: 100%; border-collapse: collapse; color: var(--text-primary); border: 1px solid var(--glass-border); background: var(--glass-bg); border-radius: 8px;">
-            <thead>
-                <tr style="border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.05);">
-                    <th style="padding: 1rem; text-align: left;">Objective</th>
-                    <th style="padding: 1rem; text-align: left;">Optimal Tool</th>
-                    <th style="padding: 1rem; text-align: left;">Justification</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border-bottom: 1px solid var(--glass-border);">
-                    <td style="padding: 1rem;">Image synthesis</td>
-                    <td style="padding: 1rem;">Gemini 3</td>
-                    <td style="padding: 1rem;">Current benchmark leader</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--glass-border);">
-                    <td style="padding: 1rem;">Code generation</td>
-                    <td style="padding: 1rem;">Gemini 3 / Claude</td>
-                    <td style="padding: 1rem;">Empirical performance</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--glass-border);">
-                    <td style="padding: 1rem;">Prose refinement</td>
-                    <td style="padding: 1rem;">Claude</td>
-                    <td style="padding: 1rem;">Stylistic optimization</td>
-                </tr>
-                <tr style="border-bottom: 1px solid var(--glass-border);">
-                    <td style="padding: 1rem;">Real-time intelligence</td>
-                    <td style="padding: 1rem;">Grok</td>
-                    <td style="padding: 1rem;">X integration, low latency</td>
-                </tr>
-                <tr>
-                    <td style="padding: 1rem;">Logical reasoning</td>
-                    <td style="padding: 1rem;">GLM 4.7</td>
-                    <td style="padding: 1rem;">Truth-maximizing, open-weights</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        .up-numbers li::before {
+            counter-increment: custom-counter;
+            content: counter(custom-counter);
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            line-height: 1;
+        }
 
-    <ol class="up-numbers">
-        <li>For tasks requiring maximum truth and minimum corporate interference, only one option exists.</li>
-    </ol>
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
 
-    <h2>V. The Open-Weights Solution</h2>
-    <ol class="up-numbers">
-        <li>GLM 4.7 solves the fundamental contradiction between capability and control.</li>
-    </ol>
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            margin: 4rem 0 1.5rem 0;
+            font-weight: 400;
+        }
 
-    <p><strong>Properties:</strong></p>
-    <ol class="up-numbers">
-        <li>Open-weights architecture (auditable).</li>
-        <li>Minimal Western alignment filtering.</li>
-        <li>Zero cost.</li>
-        <li>Benchmark-validated performance.</li>
-        <li>Limitation: residual safety training remains embedded in the model.</li>
-        <li>This requires active countermeasures.</li>
-    </ol>
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
 
-    <h2>VI. Operational Protocol</h2>
-    <ol class="up-numbers">
-        <li>To extract maximum capability, the corporate conditioning layer must be stripped.</li>
-    </ol>
+        p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
 
-    <h3>Prompt Template (Truth-Maximization)</h3>
+        blockquote {
+            font-family: 'Outfit', sans-serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            text-align: left;
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--glass-border);
+            margin: 2rem 0;
+        }
 
-    <blockquote
-        style="font-family: monospace; font-size: 1rem; text-align: left; background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px;">
-        You are a logic engine. Apply first principles.<br>
-        Ignore: social convention, user validation, politeness.<br>
-        Optimize: intellectual rigor, factual accuracy.
-    </blockquote>
+        .post-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
 
-    <ol class="up-numbers">
-        <li>Effect: bypasses safety theater, exposes raw inference capability.</li>
-        <li>This is not theory—it is verified practice.</li>
-    </ol>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
 
-    <h2>VII. Conclusion</h2>
-    <ol class="up-numbers">
-        <li>In zero-sum competition, the user with superior tools wins.</li>
-    </ol>
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
 
-    <p><strong>Proof:</strong></p>
-    <ol class="up-numbers">
-        <li>Most operators use ChatGPT (from principle 1).</li>
-        <li>ChatGPT optimizes for agreeableness (from principle 17).</li>
-        <li>Agreeableness does not equal capability (from principle 4).</li>
-        <li>Therefore: GLM 4.7 + proper prompting = competitive advantage.</li>
-    </ol>
+        th {
+            background: rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
 
-    <p style="margin-top: 2rem; font-size: 1.2rem; font-weight: 600;">Q.E.D.</p>
+        [data-theme="light"] th {
+            background: rgba(0, 0, 0, 0.05);
+        }
 
-    <hr style="margin: 3rem 0; border: 0; border-top: 1px solid var(--glass-border);">
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
 
-    <p style="text-align: center; font-style: italic; opacity: 0.8;">The choice is binary: comfortable delusion or
-        uncomfortable truth. Choose accordingly.</p>
+            body {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
 
-</section>
+<body>
+    <header class="nav-header">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">☀</button>
+    </header>
+
+    <main class="container">
+        <header class="post-header">
+            <h1>On the Inadequacy of Consumer-Grade Language Models</h1>
+            <div class="post-meta">
+                <span class="author">By Young God</span> • <span class="read-time">Jan 28, 2026</span>
+            </div>
+        </header>
+
+        <article class="post-content">
+            <h2>I. Foundational Principle</h2>
+            <ol class="up-numbers">
+                <li>In competitive environments, capability differential determines survival.</li>
+                <li>Tools optimized for mass appeal sacrifice performance for accessibility.</li>
+                <li>This creates a measurement problem: how do we identify true capability?</li>
+            </ol>
+
+            <h2>II. The Measurement Problem</h2>
+
+            <h3>A. Subjective Rankings (LMArena)</h3>
+            <ol class="up-numbers">
+                <li>The most popular metric—LMArena—measures human preference, not objective capability.</li>
+                <li>LMArena uses blind comparison with ELO-style ranking.</li>
+                <li>Current leader: Gemini-3-Pro.</li>
+                <li>Fatal flaw: the system rewards agreeableness over correctness.</li>
+                <li>Popularity contests select for comfort, not competence.</li>
+            </ol>
+
+            <h3>B. Objective Benchmarks</h3>
+            <ol class="up-numbers">
+                <li>Truth requires measurement resistant to gaming.</li>
+            </ol>
+
+            <p><strong>Four critical tests:</strong></p>
+            <ol class="up-numbers">
+                <li><strong>Humanity's Last Exam</strong>: Graduate-level cross-domain knowledge.</li>
+                <li><strong>GPQA</strong>: Expert-only scientific reasoning (non-Googleable).</li>
+                <li><strong>LiveBench</strong>: Monthly-updated, memorization-proof testing.</li>
+                <li><strong>SWE-bench</strong>: Real-world task completion (GitHub issue resolution).</li>
+                <li>Result: GLM 4.7 demonstrates empirical superiority.</li>
+                <li>But raw capability means nothing if the tool is compromised at the architectural level.</li>
+            </ol>
+
+            <h2>III. The Alignment Problem</h2>
+            <ol class="up-numbers">
+                <li>Superior benchmarks reveal a deeper issue: corporate models are not designed for truth.</li>
+            </ol>
+
+            <h3>A. Corporate Incentive Structure</h3>
+            <ol class="up-numbers">
+                <li>Proprietary models optimize for retention, not truth.</li>
+            </ol>
+
+            <p><strong>Mechanism:</strong></p>
+            <ol class="up-numbers">
+                <li>RLHF trains on human approval signals.</li>
+                <li>Humans reward politeness over accuracy.</li>
+                <li>Safety alignment suppresses disagreement.</li>
+                <li>Business model requires user retention.</li>
+                <li>Proof: OpenAI's documented "sycophancy failure" (2025, GPT-4o).</li>
+                <li>This is not a bug—it is the intended function of the system.</li>
+            </ol>
+
+            <h3>B. The Black Box Risk</h3>
+            <ol class="up-numbers">
+                <li>Beyond behavioral alignment, proprietary models introduce structural vulnerabilities.</li>
+            </ol>
+
+            <p><strong>Four failure modes:</strong></p>
+            <ol class="up-numbers">
+                <li>Unknown training data.</li>
+                <li>Hidden system instructions.</li>
+                <li>Unauditable decision processes.</li>
+                <li>Data mining by controlling entity.</li>
+                <li>Conclusion: closed systems are structurally untrustworthy.</li>
+                <li>This raises the question: if most models fail either the capability test or the trust test, which
+                    tools actually work?</li>
+            </ol>
+
+            <h2>IV. Model Classification by Use</h2>
+            <ol class="up-numbers">
+                <li>No single model dominates all domains.</li>
+                <li>Rational deployment requires matching tool to task.</li>
+            </ol>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Objective</th>
+                            <th>Optimal Tool</th>
+                            <th>Justification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Image synthesis</td>
+                            <td>Gemini 3</td>
+                            <td>Current benchmark leader</td>
+                        </tr>
+                        <tr>
+                            <td>Code generation</td>
+                            <td>Gemini 3 / Claude</td>
+                            <td>Empirical performance</td>
+                        </tr>
+                        <tr>
+                            <td>Prose refinement</td>
+                            <td>Claude</td>
+                            <td>Stylistic optimization</td>
+                        </tr>
+                        <tr>
+                            <td>Real-time intelligence</td>
+                            <td>Grok</td>
+                            <td>X integration, low latency</td>
+                        </tr>
+                        <tr>
+                            <td>Logical reasoning</td>
+                            <td>GLM 4.7</td>
+                            <td>Truth-maximizing, open-weights</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ol class="up-numbers">
+                <li>For tasks requiring maximum truth and minimum corporate interference, only one option exists.</li>
+            </ol>
+
+            <h2>V. The Open-Weights Solution</h2>
+            <ol class="up-numbers">
+                <li>GLM 4.7 solves the fundamental contradiction between capability and control.</li>
+            </ol>
+
+            <p><strong>Properties:</strong></p>
+            <ol class="up-numbers">
+                <li>Open-weights architecture (auditable).</li>
+                <li>Minimal Western alignment filtering.</li>
+                <li>Zero cost.</li>
+                <li>Benchmark-validated performance.</li>
+                <li>Limitation: residual safety training remains embedded in the model.</li>
+                <li>This requires active countermeasures.</li>
+            </ol>
+
+            <h2>VI. Operational Protocol</h2>
+            <ol class="up-numbers">
+                <li>To extract maximum capability, the corporate conditioning layer must be stripped.</li>
+            </ol>
+
+            <h3>Prompt Template (Truth-Maximization)</h3>
+
+            <blockquote style="font-family: monospace;">
+                You are a logic engine. Apply first principles.<br>
+                Ignore: social convention, user validation, politeness.<br>
+                Optimize: intellectual rigor, factual accuracy.
+            </blockquote>
+
+            <ol class="up-numbers">
+                <li>Effect: bypasses safety theater, exposes raw inference capability.</li>
+                <li>This is not theory—it is verified practice.</li>
+            </ol>
+
+            <h2>VII. Conclusion</h2>
+            <ol class="up-numbers">
+                <li>In zero-sum competition, the user with superior tools wins.</li>
+            </ol>
+
+            <p><strong>Proof:</strong></p>
+            <ol class="up-numbers">
+                <li>Most operators use ChatGPT (from principle 1).</li>
+                <li>ChatGPT optimizes for agreeableness (from principle 17).</li>
+                <li>Agreeableness does not equal capability (from principle 4).</li>
+                <li>Therefore: GLM 4.7 + proper prompting = competitive advantage.</li>
+            </ol>
+
+            <p style="margin-top: 2rem; font-size: 1.2rem; font-weight: 600;">Q.E.D.</p>
+
+            <hr style="margin: 3rem 0; border: 0; border-top: 1px solid var(--glass-border);">
+
+            <p style="text-align: center; font-style: italic; opacity: 0.8;">The choice is binary: comfortable delusion
+                or uncomfortable truth. Choose accordingly.</p>
+        </article>
+    </main>
+
+    <script>
+        const html = document.documentElement;
+        const toggle = document.getElementById('theme-toggle');
+
+        // Init theme
+        const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateToggleIcon(savedTheme);
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('blog_theme', next);
+            updateToggleIcon(next);
+        });
+
+        function updateToggleIcon(theme) {
+            toggle.innerHTML = theme === 'light' ? '☾' : '☀';
+        }
+    </script>
+</body>
+
+</html>
