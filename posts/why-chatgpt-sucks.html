@@ -40,7 +40,8 @@
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 0.5rem 2rem 4rem 2rem;
+            padding: 4rem 2rem;
+            /* Restored breathing room at top */
             min-height: 100vh;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -52,7 +53,8 @@
 
         .nav-header {
             max-width: 680px;
-            margin: 0 auto;
+            margin: 0 auto 1.5rem auto;
+            /* Tight gap between nav and title */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -121,8 +123,10 @@
             font-family: 'Outfit', sans-serif;
             font-size: 3.2rem;
             font-weight: 300;
-            margin: 0 0 0.5rem 0;
-            line-height: 1.2;
+            margin: 0 0 1.5rem 0;
+            /* Space below title to prevent overlap */
+            line-height: 1.4;
+            /* Better leading for multi-line titles */
         }
 
         h2 {
