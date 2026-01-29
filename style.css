@@ -62,7 +62,6 @@ main {
     z-index: 1;
     width: 100%;
     min-height: 100vh;
-    padding-top: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -351,7 +350,6 @@ main {
     font-family: var(--font-main);
     font-size: 0.9rem;
     color: #666;
-    margin-top: -1.5rem;
     margin-bottom: 3rem;
     display: flex;
     gap: 0.5rem;
