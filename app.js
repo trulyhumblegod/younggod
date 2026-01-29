@@ -264,14 +264,7 @@ async function showPost(id, fromHash = false) {
     }
 }
 
-setTimeout(() => {
-    postView.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}, 10);
-    } catch (error) {
-    console.error("[Blog] Error loading post:", error);
-}
-}
+
 
 
 // Lightbox functionality
