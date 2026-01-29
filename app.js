@@ -1,32 +1,15 @@
 const posts = [
     {
         id: "why-chatgpt-sucks",
-        title: "Why ChatGPT sucks (and what to use instead)",
-        date: "JAN 26, 2026",
+        title: "On the Inadequacy of Consumer-Grade Language Models", // Updated title
+        date: "JAN 28, 2026",
         file: "posts/why-chatgpt-sucks.html"
-    },
-    {
-        id: "digital-consciousness",
-        title: "The Emergence of Digital Consciousness",
-        date: "JAN 26, 2026",
-        file: "posts/digital-consciousness.html"
-    },
-    {
-        id: "organic-architectures",
-        title: "Organic Architectures and Sacred Geometry",
-        date: "JAN 20, 2026",
-        file: "posts/organic-architectures.html"
-    },
-    {
-        id: "infinite-cloud",
-        title: "The Silence of the Infinite Cloud",
-        date: "JAN 15, 2026",
-        file: "posts/infinite-cloud.html"
     }
 ];
 
+
 // Global references filled during init
-let postList, postView, postFrame, backButton, progressBar;
+let postList, postView, postFrame, backButton, progressBar, themeToggle;
 
 function init() {
     console.log("[Blog] Initializing...");
@@ -37,10 +20,17 @@ function init() {
     backButton = document.getElementById('back-to-list');
     progressBar = document.getElementById('reading-progress');
 
+    // Inject Toggle Button
+    createThemeToggle();
+    themeToggle = document.getElementById('theme-toggle');
+
     if (!postList || !postView || !postFrame || !backButton || !progressBar) {
         console.error("[Blog] Critical error: One or more DOM elements not found.");
         return;
     }
+
+    // Initialize Theme
+    initTheme();
 
     renderPosts();
     setupEventListeners();
@@ -49,6 +39,46 @@ function init() {
     handleHash();
 
     console.log("[Blog] Initialization complete.");
+}
+
+function createThemeToggle() {
+    const toggle = document.createElement('button');
+    toggle.id = 'theme-toggle';
+    toggle.className = 'theme-toggle';
+    toggle.innerHTML = '☀'; // Default icon, will be updated
+    toggle.setAttribute('aria-label', 'Toggle Dark Mode');
+    document.body.appendChild(toggle);
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateToggleIcon(savedTheme);
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleIcon(newTheme);
+
+    // Sync with iframe if active
+    syncIframeTheme(newTheme);
+}
+
+function updateToggleIcon(theme) {
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+        toggle.innerHTML = theme === 'light' ? '☾' : '☀';
+    }
+}
+
+function syncIframeTheme(theme) {
+    if (postFrame && postFrame.contentDocument) {
+        postFrame.contentDocument.documentElement.setAttribute('data-theme', theme);
+    }
 }
 
 function handleHash() {
@@ -89,6 +119,10 @@ function setupEventListeners() {
 
     window.addEventListener('hashchange', handleHash);
 
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+
     // Progress bar listener on the postView container
     postView.addEventListener('scroll', () => {
         const scrollTotal = postView.scrollHeight - postView.clientHeight;
@@ -101,6 +135,7 @@ function setupEventListeners() {
         }
     });
 }
+
 
 function closePost() {
     postView.classList.remove('active');
@@ -132,11 +167,12 @@ async function showPost(id, fromHash = false) {
         const postFrame = document.getElementById('post-frame');
 
         // Write content to iframe document
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
         frameDoc.open();
         frameDoc.write(`
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="en" data-theme="${currentTheme}">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -146,7 +182,7 @@ async function showPost(id, fromHash = false) {
                 <link rel="stylesheet" href="style.css">
                 <style>
                     html, body {
-                        background: #ffffff;
+                        background: transparent; /* Use parent/CSS bg */
                         overflow: hidden; /* Prevent iframe scrollbars */
                         padding: 0;
                         margin: 0;
@@ -168,6 +204,7 @@ async function showPost(id, fromHash = false) {
             </html>
         `);
         frameDoc.close();
+
 
         postView.classList.remove('hidden');
 
