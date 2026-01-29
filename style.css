@@ -529,7 +529,11 @@ main {
 /* Reset on the content container, not the list itself, for continuous numbering */
 .post-content {
     counter-reset: custom-counter;
+    max-width: 680px;
+    /* Readability optimization */
+    margin: 0 auto;
 }
+
 
 .up-numbers {
     list-style: none;
