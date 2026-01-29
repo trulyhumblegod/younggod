@@ -21,8 +21,9 @@ function init() {
     progressBar = document.getElementById('reading-progress');
 
     // Inject Toggle Button
-    createThemeToggle();
-    themeToggle = document.getElementById('theme-toggle');
+    // createThemeToggle(); // Removed global toggle
+    // themeToggle = document.getElementById('theme-toggle'); 
+
 
     if (!postList || !postView || !postFrame || !backButton || !progressBar) {
         console.error("[Blog] Critical error: One or more DOM elements not found.");
@@ -41,14 +42,7 @@ function init() {
     console.log("[Blog] Initialization complete.");
 }
 
-function createThemeToggle() {
-    const toggle = document.createElement('button');
-    toggle.id = 'theme-toggle';
-    toggle.className = 'theme-toggle';
-    toggle.innerHTML = '☀'; // Default icon, will be updated
-    toggle.setAttribute('aria-label', 'Toggle Dark Mode');
-    document.body.appendChild(toggle);
-}
+
 
 function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -166,13 +160,15 @@ async function showPost(id, fromHash = false) {
         const html = await response.text();
         const postFrame = document.getElementById('post-frame');
 
+        // Check local storage for inner iframe theme
+        const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+
         // Write content to iframe document
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
         const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
         frameDoc.open();
         frameDoc.write(`
             <!DOCTYPE html>
-            <html lang="en" data-theme="${currentTheme}">
+            <html lang="en" data-theme="${savedTheme}">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -182,24 +178,87 @@ async function showPost(id, fromHash = false) {
                 <link rel="stylesheet" href="style.css">
                 <style>
                     html, body {
-                        background: transparent; /* Use parent/CSS bg */
-                        overflow: hidden; /* Prevent iframe scrollbars */
+                        overflow-x: hidden; 
                         padding: 0;
                         margin: 0;
                         width: 100%;
+                         /* Force removal of background image from style.css overrides */
+                        background-image: none !important;
                     }
+                    
+                    /* Theme overrides for the iframe body specifically */
+                    html[data-theme="dark"] body {
+                         background-color: #050505 !important;
+                         color: #ffffff;
+                    }
+                    html[data-theme="light"] body {
+                        background-color: #f5f5f7 !important;
+                        color: #1d1d1f;
+                    }
+
                     body {
                         padding: 0 2rem 4rem 2rem;
                         box-sizing: border-box;
                     }
-                    /* Ensure lightbox images work inside iframe */
-                    .post-content img { cursor: pointer; }
+
+                    /* Floating Toggle inside Iframe */
+                    .theme-toggle {
+                        position: fixed;
+                        top: 1rem;
+                        right: 1rem;
+                        z-index: 9999;
+                    }
+                    
+                    /* Correct colors for the toggle inside iframe */
+                    html[data-theme="light"] .theme-toggle {
+                        color: #000;
+                        border-color: rgba(0,0,0,0.1);
+                    }
                 </style>
             </head>
             <body>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                    ${savedTheme === 'light' ? '☾' : '☀'}
+                </button>
+
                 <div class="post-content">
                     ${html}
                 </div>
+
+                <script>
+                    const toggle = document.getElementById('theme-toggle');
+                    toggle.addEventListener('click', () => {
+                        const html = document.documentElement;
+                        const current = html.getAttribute('data-theme');
+                        const next = current === 'light' ? 'dark' : 'light';
+                        
+                        html.setAttribute('data-theme', next);
+                        toggle.innerHTML = next === 'light' ? '☾' : '☀';
+                        
+                        // Save preference specifically for blog posts
+                        localStorage.setItem('blog_theme', next);
+                    });
+                    
+                    // Lightbox message relay
+                    document.addEventListener('click', (e) => {
+                        if (e.target.matches('img')) {
+                            window.parent.postMessage({
+                                type: 'openLightbox',
+                                src: e.target.src,
+                                alt: e.target.alt
+                            }, '*');
+                        }
+                    });
+                    
+                    // Auto-resize
+                    const resize = () => {
+                        window.parent.postMessage({ type: 'resize', height: document.body.scrollHeight }, '*');
+                    };
+                    window.onload = resize;
+                    window.onresize = resize;
+                    // Resize when images load
+                    document.querySelectorAll('img').forEach(img => img.onload = resize);
+                </script>
             </body>
             </html>
         `);
@@ -208,30 +267,19 @@ async function showPost(id, fromHash = false) {
 
         postView.classList.remove('hidden');
 
-        // Resize iframe and setup listeners when loaded
+        // Resize logic is now mostly inside the iframe script, but we keep the onload here as fallback/initial
         postFrame.onload = () => {
+            // Initial resize attempted from parent side as well
             const frameDoc = postFrame.contentDocument || postFrame.contentWindow.document;
-
-            // Auto-resize iframe
-            const resizeIframe = () => {
-                postFrame.style.height = frameDoc.body.scrollHeight + 'px';
-            };
-            resizeIframe();
-            // Resize again after images load within iframe
-            frameDoc.querySelectorAll('img').forEach(img => {
-                img.onload = resizeIframe;
-            });
-
-            frameDoc.addEventListener('click', (e) => {
-                if (e.target.matches('img')) {
-                    window.parent.postMessage({
-                        type: 'openLightbox',
-                        src: e.target.src,
-                        alt: e.target.alt
-                    }, '*');
-                }
-            });
+            postFrame.style.height = frameDoc.body.scrollHeight + 'px';
         };
+
+        // Listen for resize messages from iframe
+        window.addEventListener('message', (e) => {
+            if (e.data.type === 'resize') {
+                postFrame.style.height = e.data.height + 'px';
+            }
+        });
 
         setTimeout(() => {
             postView.classList.add('active');
@@ -239,9 +287,9 @@ async function showPost(id, fromHash = false) {
         }, 10);
     } catch (error) {
         console.error("[Blog] Error loading post:", error);
-        // postFrame.srcdoc = "<h1>Error loading post</h1><p>Please try again later.</p>"; 
     }
 }
+
 
 // Lightbox functionality
 function initLightbox() {
