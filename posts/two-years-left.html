@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why you only have 2 years to make it | Young God</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-color: #ffffff;
+            --accent-gradient: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.4) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 20px;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-primary: #1d1d1f;
+            --text-secondary: rgba(29, 29, 31, 0.7);
+            --accent-color: #000000;
+            --accent-gradient: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.6) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --glass-blur: 30px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: none !important;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .nav-header {
+            max-width: 680px;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            counter-reset: custom-counter;
+        }
+
+        .up-numbers {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 2.2rem;
+        }
+
+        .up-numbers li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .up-numbers li::before {
+            counter-increment: custom-counter;
+            content: counter(custom-counter);
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            line-height: 1;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 300;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.3;
+        }
+
+        p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .post-header-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            body {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav-header">
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">☀</button>
+    </header>
+
+    <main class="container">
+        <header class="post-header">
+            <img src="digital_brain.png" class="post-header-image" alt="Digital Brain Header">
+            <h1>Why you only have 2 years to make it</h1>
+            <div class="post-meta">
+                <span class="read-time">Jan 30, 2026</span>
+            </div>
+        </header>
+
+        <article class="post-content">
+            <ol class="up-numbers">
+                <li>AI replaces humans because intelligence can now be scaled with compute instead of biology.</li>
+                <li>Human brains are fixed in size and speed.</li>
+                <li>AI runs on silicon that keeps getting faster and cheaper.</li>
+                <li>More compute plus better algorithms equals more capability.</li>
+                <li>Progress in AI compounds every few months.</li>
+                <li>Dario Amodei says frontier models could reach human-level performance by late 2026 or 2027.</li>
+                <li>That means 2 to 3 years from now.</li>
+                <li>AI will soon do end-to-end software engineering.</li>
+                <li>It will also handle legal research, writing, and analysis.</li>
+                <li>Half of entry-level white-collar jobs could vanish in a few years.</li>
+                <li>Unemployment may hit 10 to 20 percent quickly.</li>
+                <li>This is not hype.</li>
+                <li>It follows basic scaling laws.</li>
+                <li>Capability grows roughly with the log of compute used.</li>
+                <li>We are pouring trillions into data centers right now.</li>
+                <li>AI already helps design better chips and algorithms.</li>
+                <li>Soon it will speed up its own improvement.</li>
+                <li>That creates an exponential feedback loop.</li>
+                <li>Most people will not keep up without drastic action.</li>
+                <li>Probability theory pulls the unprepared toward the average outcome.</li>
+                <li>The average outcome will be job loss and lower status.</li>
+                <li>To escape that mean you must act now.</li>
+                <li>Build deep AI skills fast.</li>
+                <li>Create workflows where you and AI multiply each other.</li>
+                <li>Start AI-powered projects or businesses today.</li>
+                <li>Invest time and money in tools and knowledge.</li>
+                <li>The window to get ahead is closing.</li>
+                <li>In 2 to 3 years the job market will look very different.</li>
+                <li>High GDP growth will come with high unemployment for many.</li>
+                <li>Lock in your future or get dragged to the mean.</li>
+            </ol>
+        </article>
+    </main>
+
+    <!-- Image Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-close">×</div>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        const html = document.documentElement;
+        const toggle = document.getElementById('theme-toggle');
+
+        const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateToggleIcon(savedTheme);
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('blog_theme', next);
+            updateToggleIcon(next);
+        });
+
+        function updateToggleIcon(theme) {
+            toggle.innerHTML = theme === 'light' ? '☾' : '☀';
+        }
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const images = document.querySelectorAll('.container img');
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+    </script>
+</body>
+
+</html>
