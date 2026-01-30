@@ -1,9 +1,9 @@
 const posts = [
     {
-        id: "chatgpt-es-para-noobs",
-        title: "ChatGPT es para noobs",
-        date: "JAN 28, 2026",
-        file: "posts/chatgpt-es-para-noobs.html"
+        id: "noobs-chatgpt",
+        title: "Por qué Chat GPT es para noobs y qué es mejor",
+        date: "JAN 30, 2026",
+        file: "posts/noobs-chatgpt.html"
     },
     {
         id: "digital-consciousness",
@@ -44,4 +44,3 @@ function renderPosts() {
 document.addEventListener('DOMContentLoaded', () => {
     init();
 });
-
