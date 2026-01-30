@@ -1,11 +1,5 @@
 const posts = [
     {
-        id: "noobs-chatgpt",
-        title: "Por qué Chat GPT es para noobs y qué es mejor",
-        date: "JAN 30, 2026",
-        file: "posts/noobs-chatgpt.html"
-    },
-    {
         id: "two-years-left",
         title: "Why you only have 2 years to make it",
         date: "JAN 30, 2026",
@@ -44,3 +38,4 @@ function renderPosts() {
 document.addEventListener('DOMContentLoaded', () => {
     init();
 });
+
