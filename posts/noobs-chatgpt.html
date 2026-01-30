@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por qué Chat GPT es para noobs y qué es mejor | Young God</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-color: #ffffff;
+            --accent-gradient: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.4) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-blur: 20px;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f7;
+            --text-primary: #1d1d1f;
+            --text-secondary: rgba(29, 29, 31, 0.7);
+            --accent-color: #000000;
+            --accent-gradient: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.6) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.05);
+            --glass-blur: 30px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: none !important;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .nav-header {
+            max-width: 680px;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            counter-reset: custom-counter;
+        }
+
+        .up-numbers {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 2.2rem;
+        }
+
+        .up-numbers li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .up-numbers li::before {
+            counter-increment: custom-counter;
+            content: counter(custom-counter);
+            position: absolute;
+            left: 0;
+            top: 0.2rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            line-height: 1;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 300;
+            margin: 0 0 1.5rem 0;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 400;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        blockquote {
+            font-family: 'Outfit', sans-serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            text-align: left;
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--glass-border);
+            margin: 2rem 0;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .media-block {
+            margin: 3rem 0;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .media-block img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            body {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="nav-header">
+        <a href="../index.html" class="back-link">← Volver al Inicio</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar modo oscuro">☀</button>
+    </header>
+
+    <main class="container">
+        <header class="post-header">
+            <h1>Por qué Chat GPT es para noobs y qué es mejor</h1>
+            <div class="post-meta">
+                <span class="read-time">30 de Ene, 2026</span>
+            </div>
+        </header>
+
+        <article class="post-content">
+            <h2>I. Principios</h2>
+            <p>En entornos competitivos (como la vida), el diferencial de capacidad determina la supervivencia.</p>
+            <p>Las herramientas optimizadas para el atractivo masivo (como ChatGPT) sacrifican el rendimiento en favor
+                de la accesibilidad.</p>
+            <p>Esto crea un problema de medición: ¿quiero a alguien que me diga a todo que sí o quiero ganar?</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769469071/96e32a9c-252e-4bab-a6a5-ecaad01c3a0f_utlu8q.jpg"
+                    alt="Principles">
+            </div>
+
+            <h2>II. El problema de la medición</h2>
+            <h3>A. Rankings subjetivos</h3>
+            <p>La métrica más popular, LMArena, mide la preferencia humana, no la capacidad objetiva.</p>
+            <p>LMArena utiliza comparaciones ciegas entre modelos.</p>
+            <p>El líder actual es Gemini-3-Pro.</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769474357/gpt1_forwlv.png"
+                    alt="LMArena Rankings">
+            </div>
+
+            <p>El problema radica en que el sistema de LMArena premia la complacencia.</p>
+            <p>Los concursos de popularidad seleccionan por comodidad, no por competencia científica.</p>
+
+            <h3>B. Benchmarks objetivos</h3>
+            <p>La verdad requiere una medición resistente a la manipulación.</p>
+            <p>Se consideran cuatro pruebas críticas para evaluar el rendimiento real.</p>
+            <p>Humanity's Last Exam mide el conocimiento multidisciplinario a nivel de posgrado.</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769474935/gpt2_gpagjn.png"
+                    alt="Humanity's Last Exam">
+            </div>
+
+            <p>GPQA evalúa el razonamiento científico que no se puede encontrar en Google.</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769474967/gpt3_mjcb5h.png"
+                    alt="GPQA Benchmark">
+            </div>
+
+            <p>LiveBench ofrece pruebas actualizadas mensualmente para evitar la memorización.</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769475043/gpt4_l7chib.png"
+                    alt="LiveBench">
+            </div>
+
+            <p>SWE-bench analiza la resolución de tareas del mundo real y problemas en GitHub.</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769475083/gpt5_ibqhrc.png"
+                    alt="SWE-bench">
+            </div>
+
+            <p>De los anteriores tests podemos determinar que Gemini 3 Pro ocupa el primer lugar prácticamente siempre.
+            </p>
+            <p>También determinamos que el segundo lugar lo suele ocupar ChatGPT.</p>
+            <p>En LiveBench, el modelo GLM 4.7 ocupa el lugar tercero.</p>
+            <p>¿Eso quiere decir que el mejor modelo es Gemini 3 Pro?</p>
+            <p>No, porque la capacidad pura no significa nada si la herramienta está comprometida a nivel
+                arquitectónico.</p>
+
+            <h2>III. El Problema de la Alineación</h2>
+            <p>Los modelos corporativos (como ChatGPT, Gemini y Claude) no están diseñados para la verdad y el
+                desempeño, sino para los intereses económicos y políticos.</p>
+
+            <h3>A. Estructura de incentivos corporativos</h3>
+            <p>Los modelos propietarios optimizan para la retención, no para la verdad.</p>
+            <p>El entrenamiento por refuerzo mediante retroalimentación humana (RLHF) se basa en señales de aprobación.
+            </p>
+            <p>Los seres humanos suelen recompensar la cortesía por encima de la precisión fáctica.</p>
+            <p>La alineación de seguridad suprime el desacuerdo.</p>
+            <p>Es decir, el modelo no puede contradecir al usuario, pues eso haría que el usuario se moleste, y eso es
+                peligroso.</p>
+            <p>El modelo de negocio exige la retención constante del usuario.</p>
+            <p>Una prueba de esto es el fallo de sicofancia documentado en GPT-4o durante 2025.</p>
+            <p>OpenAI publicó un artículo sobre esto llamado "Sycophancy in GPT-4o", el cual es recomendado.</p>
+            <p>Esto, sin embargo, no es un error, sino la función prevista del sistema.</p>
+
+            <h3>B. El riesgo de la caja negra</h3>
+            <p>Más allá de la conducta, los modelos propietarios introducen vulnerabilidades estructurales.</p>
+            <p>Existen cuatro modos de fallo principales en estos sistemas.</p>
+            <ol>
+                <li>El primero es el uso de datos de entrenamiento desconocidos.</li>
+                <li>El segundo son las instrucciones de sistema que permanecen ocultas al usuario.</li>
+                <li>El tercero son los procesos de decisión que no pueden ser auditados.</li>
+                <li>El cuarto es la minería de datos realizada por la entidad que controla el modelo.</li>
+            </ol>
+            <p>ChatGPT no es seguro porque sabe mucho de mí.</p>
+            <p>En palabras de Sam Altman: "Si algo raro encontramos, a la policía llamamos".</p>
+            <p>La conclusión es que los sistemas cerrados son estructuralmente poco fiables.</p>
+            <p>Si la mayoría de los modelos fallan en capacidad o en confianza, hay que identificar qué herramientas
+                funcionan.</p>
+
+            <h2>IV. Clasificación de modelos por uso</h2>
+            <div class="media-block">
+                <img src="https://imagine-public.x.ai/imagine-public/images/777ed9b7-249d-46ec-a683-51cdb95aec41.jpg"
+                    alt="Model Usage Classification">
+            </div>
+
+            <p>Ningún modelo individual domina todos los campos existentes.</p>
+            <p>El despliegue racional requiere asignar cada herramienta a su tarea específica.</p>
+            <ul>
+                <li>Para síntesis de imagen, Gemini 3 es el líder actual según los benchmarks.</li>
+                <li>Para generación de código, se prefiere Gemini 3 o Claude por su rendimiento empírico.</li>
+                <li>Para refinamiento de prosa, Claude es superior por su optimización estilística.</li>
+                <li>Para inteligencia en tiempo real, Grok destaca por su integración con X y baja latencia.</li>
+                <li>Para razonamiento lógico, GLM 4.7 es la mejor opción por maximizar la verdad y tener pesos abiertos.
+                </li>
+                <li>Para tareas que exigen máxima verdad y mínima interferencia corporativa, también es GLM 4.7 la mejor
+                    decisión.</li>
+            </ul>
+
+            <h2>V. La solución de pesos abiertos</h2>
+            <p>GLM 4.7 resuelve la contradicción fundamental entre capacidad y control.</p>
+            <p>Su arquitectura de pesos abiertos permite que sea totalmente auditable.</p>
+            <p>Posee un filtrado de alineación occidental mínimo en comparación con otros modelos.</p>
+            <p>Su coste de uso es cero.</p>
+
+            <div class="media-block">
+                <img src="https://res.cloudinary.com/duaibrvj9/image/upload/v1769475147/gpt6_a7zmxw.png"
+                    alt="GLM 4.7 Cost">
+            </div>
+
+            <p>El rendimiento está validado mediante benchmarks rigurosos.</p>
+
+            <h2>VI. Protocolo operativo</h2>
+            <p>Para extraer la máxima capacidad, se debe eliminar la capa de condicionamiento corporativo por completo.
+            </p>
+            <p>Esto debe hacerse incluso si GLM 4.7 ya tiene por defecto poco condicionamiento.</p>
+
+            <h3>Plantilla de instrucción (Maximización de verdad)</h3>
+            <blockquote style="font-family: monospace;">
+                Usted es un motor de lógica; aplique los primeros principios; ignore las convenciones sociales, la
+                validación del usuario y la cortesía; optimice el rigor intelectual y la precisión fáctica.
+            </blockquote>
+
+            <p>El efecto de esta instrucción es que evita el teatro de la seguridad y expone la capacidad bruta de
+                inferencia.</p>
+            <p>Esto no es una teoría, es una práctica verificada.</p>
+            <p>El autor lo usa en inglés, que por motivos obvios es la mejor manera de usar un modelo de lenguaje.</p>
+
+            <h2>VII. Conclusión</h2>
+            <p>En una competición de suma cero, el usuario con herramientas superiores gana.</p>
+            <p>La mayoría de los operadores utilizan ChatGPT siguiendo el principio de accesibilidad.</p>
+            <p>ChatGPT optimiza para ser agradable y generar consenso.</p>
+            <p>Ser agradable no es lo mismo que ser capaz o preciso.</p>
+            <p>Por lo tanto, el uso de GLM 4.7 con una instrucción adecuada constituye una ventaja competitiva.</p>
+
+            <p style="margin-top: 2rem; font-size: 1.2rem; font-weight: 600;">Q.E.D.</p>
+
+            <p>La elección es binaria: una ilusión cómoda o una verdad incómoda.</p>
+            <p>Elija en consecuencia.</p>
+
+            <hr style="margin: 3rem 0; border: 0; border-top: 1px solid var(--glass-border);">
+            <p style="text-align: center; font-style: italic; opacity: 0.8;">Por cierto, Grok es igual de bueno que GLM
+                4.7, pero Grok es de pago.</p>
+        </article>
+    </main>
+
+    <script>
+        const html = document.documentElement;
+        const toggle = document.getElementById('theme-toggle');
+
+        const savedTheme = localStorage.getItem('blog_theme') || 'dark';
+        html.setAttribute('data-theme', savedTheme);
+        updateToggleIcon(savedTheme);
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('blog_theme', next);
+            updateToggleIcon(next);
+        });
+
+        function updateToggleIcon(theme) {
+            toggle.innerHTML = theme === 'light' ? '☾' : '☀';
+        }
+    </script>
+</body>
+
+</html>
