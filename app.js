@@ -6,10 +6,10 @@ const posts = [
         file: "posts/noobs-chatgpt.html"
     },
     {
-        id: "digital-consciousness",
-        title: "The Emergence of Digital Consciousness",
-        date: "JAN 25, 2026",
-        file: "posts/digital-consciousness.html"
+        id: "two-years-left",
+        title: "Why you only have 2 years to make it",
+        date: "JAN 30, 2026",
+        file: "posts/two-years-left.html"
     }
 
 ];
